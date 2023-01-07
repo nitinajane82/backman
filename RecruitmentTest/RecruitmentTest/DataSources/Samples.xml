@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<samples>
+	<sample Id="AB000001" Value="10" Measure="kg" Refdate="29 Jan 2008"/>
+	<sample id="AB000002" Value="11" Measure="kg" Refdate="23 Jan 2008"/>
+	<sample id="AB000003" Value="12" Measure="kg" Refdate="22 Jan 2008"/>
+</samples>
+

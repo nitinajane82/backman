@@ -1,0 +1,55 @@
+This application simulates a sample loader that loads weight measurements from various devices (ie. scales).
+
+In the 'DataSources' folder there are 3 files:
+	Samples.xml - contains samples in xml format
+	Samples.csv - comma delimited sample attributes, one sample per row
+	Samples.pip - pipe delimited sample attributes, one sample per row
+
+Current state of product is still un-releasable. User interface is ready (MVVM pattern, WPF Technology) but data access layer  handling/consuming existing Data Sources need to be written. 
+
+The Test:
+1. Propose class structure for samples loading process. Please keep solution flexible for future changes (open close principle), easy to maintain and test.
+2. Document your proposal. 
+3. Implement solution for samples loading process. Do it in object oriented way according with proposed model.  
+4. Consume written loaders in SamplesDeliveryService.ProvideSamples() method (file is located in 'Services' folder). 
+5. Execute samples loads in parallel (extra, optional task).
+
+Remarks
+Make you solution ready for further extensibility, company plans to introduce new devices to the portfolio in next 2 years. 
+Open source code can be used to handle common problems, please do not reinvent the wheel. If happen, justification for used library is needed.
+
+Verification process
+1) Developed solution will be executed with set of files (simulating different data sources) and user interface output will be checked (acceptance end to end test)
+2) effort needed for adding new data source type will be judged (less is better)
+ 
+
+ ==========================================================================================================================================================
+Propose solution:
+There can be two use cases:
+UseCase 1: The user may want to load only a single data from a provided data source on the load samples button click.
+UseCase 2: The user may want to load multiple data from provided different sources at a time on the load samples button click.
+
+A Microsoft Ioc Unity Container was used for instance creation and management.
+
+Both the approaches can be easily configured via the Settings editor provided value for load type Single or Multiple.
+If the User opts to load Sigle data source he may choose a specific data source he may be interested either XML, CSV or Pip configured in the settings editor.
+For demonstration purposes for both approaches, the factory configured in the constructor of SampleViewModel will create either instance of SingleDeliveryService
+or MultipleSampleDeliveryService instance as well as interested file type DataSource in case of single Data source load use case.
+
+For Use Case Case 1: Single Data source load
+Create an abstraction for LoadAsync data samples
+A base abstract class define the common behaviour LoadAsync method for LoadSamples asynchronously and two abstract methods 
+"GetSampleDataAsync", "ParseSampleDataAsync" define for getting and parse SampleData from different sources based on concrete subclasses. 
+This can be easily extended by adding a new concrete implementation based on a newly added data source that must override the above behaviour.
+ 
+Currently, there are three concrete implementations CsvFileSampleLoader, PipeFileSampleLoader and XmlFileSampleLoader based on different 
+data source file types and can be extended if a new data source file is needed in future.
+
+For Use Case Case 2: Multiload Data source
+Two Separate Contracts interface define for load and parse the data called "ILoader" and "IParser" can be implemented via different concrete implementation
+for load and parse based on DataSource type ie: for binary data source BinaryLoader and PipeParser can be implemented for load and parse sample data.
+ 
+Look for the DataSource folder for each sample data file type loads the appropriate loader and Creates a Parser from FactoryLookup via CreateLoader and CreateParser method.
+and finally, ParseSampleAsync method parse the data provided by the appropriate loader.
+
+This solution can be easily extendable via implementing the contracts IParser and ILoader for the newly added data source and Register the loader and parser in Unity Container.

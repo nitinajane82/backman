@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RecruitmentTest.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CsvFileType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">csv</Value>
+    </Setting>
+    <Setting Name="PipeFileType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pip</Value>
+    </Setting>
+    <Setting Name="XmlFileType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">xml</Value>
+    </Setting>
+    <Setting Name="SingleLoad" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Single</Value>
+    </Setting>
+    <Setting Name="MultiLoad" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Multiple</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
